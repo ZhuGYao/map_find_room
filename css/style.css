@@ -1,0 +1,66 @@
+<style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body,html {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			font-family: "微软雅黑";
+		}
+		
+		#allMap {
+			height: 100%;
+			width: 100%;
+		}
+        /*隐藏地图控件*/
+        /*.anchorBL, .BMap_cpyCtrl {
+            display: none;
+        }*/
+        /*地图聚合样式*/
+        .bubble p {
+        	width: 80px;
+        	line-height: 20px;
+            text-align: center;
+            color: #fff;
+            font-size: 14px;
+        }
+        .bubble .name {
+			margin-top: 20px;
+        }
+        .bubble .count {
+			margin-top: -10px;
+        }
+        .ZLQbubble{
+			text-align: center;
+			padding: 0px 5px;
+        }
+        .ZLQbubble span{
+        	height: 22px; //高度
+        	line-height: 22px;
+        	color: #fff;
+            font-size: 14px;
+        }
+        .ZLQbubble .count{
+        	font-weight: bold;
+        }
+        .drawing , .exit{
+        	position: absolute;
+        	top: 10px;
+        	left: 1300px;
+        	background: #46ACFF;
+        	border: 0px;
+        	color: white;
+        	width: 100px;
+        	height: 25px;
+        	line-height: 25px;
+        	font-size: 15px;
+        	font-weight: bold;
+        	border-radius: 15px;
+        	outline:none;
+        }
+        .exit{
+        	left: 1410px;
+        }
+    </style>
