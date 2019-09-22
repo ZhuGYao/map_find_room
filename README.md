@@ -7,4 +7,4 @@
     5.具体效果以及功能，请下载源码直接运行便可观看，另外注释写的很清楚。
 
 ### 项目截图示例
-    ![image](https://github.com/ZhuGYao/MapFindingRoom/blob/master/img/demo.gif)
+![image](https://github.com/ZhuGYao/MapFindingRoom/blob/master/img/demo.gif)
