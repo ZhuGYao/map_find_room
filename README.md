@@ -9,4 +9,4 @@
 ### 项目截图示例
 ![image](https://github.com/ZhuGYao/MapFindingRoom/blob/master/img/demo.gif)
 
-### 开源不易，且行且珍惜，请大方的点一下start，谢谢!
+### 开源不易，且行且珍惜，请大方的点一下star，谢谢!
