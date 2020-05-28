@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>仿链家地图找房</title>
 		<style>
 
 		</style>
@@ -21,17 +22,16 @@
 
 </html>
 <script>
-	
 	/**
 	 * 说明:数据量较少，所以不是每一个区下面都有数据，只模拟造了少量数据
 	 */
-	
-	
+
 	var map = null;
-	//所有行政边界
+	// 所有行政边界对象
 	var plyAll = {};
-	//第三级小区数据marker数组
+	// 第三级小区数据marker数组
 	var thirdlyMkr = [];
+	
 	var area = {
 		"朝阳": "116.650961, 39.953068;116.647032, 39.98691;116.63902, 39.989921;116.646034, 39.996626;116.649706, 39.995966;116.64388, 40.008276;116.631617, 40.010369;116.634303, 40.013884;116.626779, 40.017684;116.608678, 40.019494;116.583337, 40.033667;116.58512, 40.038702;116.580325, 40.038528;116.583948, 40.035321;116.577237, 40.038048;116.572776, 40.043996;116.552859, 40.054862;116.558036, 40.059698;116.553933, 40.068316;116.549804, 40.065267;116.534848, 40.077006;116.519157, 40.076995;116.506039, 40.086195;116.493261, 40.086798;116.480795, 40.090768;116.477066, 40.095295;116.473772, 40.095749;116.47299, 40.087622;116.465244, 40.081215;116.465141, 40.075224;116.468604, 40.072735;116.466472, 40.065882;116.460544, 40.067309;116.456071, 40.064183;116.435535, 40.068009;116.430863, 40.072412;116.43275, 40.065729;116.416237, 40.061837;116.412391, 40.045844;116.402526, 40.042977;116.397532, 40.047478;116.396889, 40.043107;116.401384, 40.038986;116.357698, 40.032456;116.383528, 39.998723;116.388012, 39.979005;116.40079, 39.97939;116.394425, 39.967819;116.414458, 39.968379;116.415992, 39.980297;116.420749, 39.968351;116.43714, 39.965434;116.436895, 39.956094;116.44256, 39.955003;116.442105, 39.957971;116.445465, 39.95794;116.44827, 39.954014;116.445335, 39.952313;116.454021, 39.950843;116.450578, 39.934475;116.441115, 39.934524;116.44309, 39.907813;116.455279, 39.908899;116.452628, 39.906324;116.454046, 39.899926;116.459053, 39.897876;116.450892, 39.895587;116.449793, 39.872004;116.45289, 39.866792;116.454981, 39.869156;116.460988, 39.865187;116.462645, 39.867017;116.474563, 39.861438;116.474382, 39.858866;116.467016, 39.854221;116.458569, 39.857585;116.457234, 39.854407;116.452674, 39.854041;116.45328, 39.849707;116.449059, 39.849332;116.448289, 39.84585;116.443078, 39.847219;116.437897, 39.838821;116.431945, 39.838433;116.443149, 39.836254;116.443145, 39.833759;116.447598, 39.835391;116.451186, 39.826488;116.460672, 39.828388;116.470039, 39.820021;116.475428, 39.820441;116.481001, 39.815478;116.491881, 39.818779;116.492268, 39.822973;116.496732, 39.822401;116.500149, 39.825843;116.50506, 39.821924;116.51287, 39.823894;116.509685, 39.82523;116.516838, 39.827781;116.521553, 39.836695;116.532658, 39.836257;116.533103, 39.833261;116.541563, 39.831367;116.544886, 39.834336;116.539895, 39.839188;116.549452, 39.836211;116.552099, 39.842243;116.567975, 39.840461;116.569324, 39.838091;116.579062, 39.840809;116.584542, 39.833384;116.593998, 39.833964;116.590735, 39.830712;116.605338, 39.830648;116.605927, 39.837426;116.609081, 39.837626;116.60846, 39.846971;116.614921, 39.852365;116.611549, 39.852399;116.61093, 39.855871;116.620173, 39.856692;116.63354, 39.867144;116.626555, 39.874742;116.631159, 39.887536;116.635563, 39.887997;116.634512, 39.896742;116.622236, 39.895824;116.620665, 39.902338;116.627021, 39.904405;116.624334, 39.905667;116.630369, 39.910416;116.627265, 39.911221;116.629537, 39.920046;116.626791, 39.928306;116.637056, 39.927871;116.630683, 39.9362;116.631415, 39.938363;116.635707, 39.937628;116.636168, 39.945441;116.640367, 39.944769;116.636452, 39.952173;116.638575, 39.95661;116.650961, 39.953068",
 		"海淀": "116.401487, 40.039207;116.396889, 40.043107;116.397532, 40.047478;116.377657, 40.050901;116.37268, 40.057578;116.378756, 40.060252;116.378416, 40.063869;116.38833, 40.067337;116.386925, 40.072623;116.378832, 40.071619;116.37642, 40.075512;116.369154, 40.074739;116.368994, 40.071752;116.35321, 40.069508;116.347215, 40.060883;116.344822, 40.064725;116.331751, 40.060512;116.32435, 40.067597;116.309113, 40.066593;116.296607, 40.089372;116.286507, 40.086216;116.279269, 40.10179;116.268982, 40.103106;116.265632, 40.107748;116.270285, 40.109673;116.269104, 40.11678;116.265338, 40.119276;116.262631, 40.110699;116.247047, 40.113918;116.253693, 40.141818;116.23991, 40.142391;116.22239, 40.148754;116.21529, 40.146573;116.208517, 40.166773;116.198876, 40.164907;116.198355, 40.16135;116.18891, 40.164052;116.183772, 40.150544;116.169704, 40.145505;116.176713, 40.138393;116.177473, 40.134075;116.172708, 40.134136;116.176374, 40.130104;116.138833, 40.127404;116.135601, 40.120445;116.119007, 40.120749;116.112127, 40.123367;116.107802, 40.121401;116.102224, 40.126752;116.090536, 40.125619;116.079881, 40.121081;116.075122, 40.110754;116.060977, 40.10234;116.054, 40.091797;116.070767, 40.07877;116.07186, 40.072948;116.078244, 40.06743;116.075073, 40.057504;116.084592, 40.03861;116.09104, 40.036373;116.106226, 40.039283;116.122264, 40.038312;116.128147, 40.035514;116.141491, 40.03639;116.155199, 40.028265;116.164202, 40.027154;116.179801, 40.015023;116.18223, 40.01236;116.179408, 40.006919;116.16247, 40.00416;116.157989, 39.999703;116.165089, 39.990218;116.173858, 39.993708;116.177325, 39.983005;116.184602, 39.988307;116.185766, 39.994289;116.192053, 39.991767;116.19262, 39.976217;116.209435, 39.965824;116.220326, 39.952081;116.226888, 39.949271;116.226802, 39.946715;116.22284, 39.94674;116.222906, 39.939679;116.220202, 39.939789;116.222962, 39.9342;116.213814, 39.929723;116.213633, 39.922735;116.24337, 39.923018;116.259036, 39.92726;116.259921, 39.924087;116.256267, 39.922312;116.259923, 39.921779;116.26, 39.903259;116.301553, 39.902767;116.301405, 39.893294;116.320421, 39.902819;116.344906, 39.90286;116.341855, 39.904866;116.339888, 39.943935;116.335118, 39.948279;116.358218, 39.949025;116.359964, 39.956932;116.362746, 39.956739;116.36368, 39.950249;116.378517, 39.955318;116.376908, 39.97395;116.387092, 39.974395;116.388298, 39.983529;116.383845, 39.998101;116.357698, 40.032456;116.401487, 40.039207",
@@ -40,6 +40,7 @@
 		"石景山": "116.157989, 39.999703;116.165089, 39.990218;116.173858, 39.993708;116.177325, 39.983005;116.184602, 39.988307;116.185766, 39.994289;116.192053, 39.991767;116.19262, 39.976217;116.209435, 39.965824;116.220326, 39.952081;116.226888, 39.949271;116.226802, 39.946715;116.22284, 39.94674;116.222906, 39.939679;116.220202, 39.939789;116.222962, 39.9342;116.213814, 39.929723;116.213633, 39.922735;116.24337, 39.923018;116.259538, 39.926855;116.256267, 39.922312;116.259923, 39.921779;116.26, 39.903259;116.264987, 39.902837;116.246477, 39.901145;116.244196, 39.8977;116.240055, 39.897981;116.241011, 39.895285;116.23554, 39.896353;116.234601, 39.889145;116.225699, 39.887068;116.2252, 39.882502;116.218569, 39.884146;116.219185, 39.880471;116.214937, 39.880464;116.204496, 39.88917;116.192828, 39.888561;116.174627, 39.894426;116.162323, 39.90415;116.148229, 39.927652;116.137759, 39.930542;116.131242, 39.940775;116.127137, 39.939331;116.116172, 39.951699;116.130208, 39.955807;116.121887, 39.963685;116.127885, 39.971781;116.120886, 39.988255;116.125742, 39.991769;116.150045, 39.995504;116.157989, 39.999703"
 	}
 
+	// 一级数据
 	var firstData = [{
 			"name": "海淀",
 			"longitude": "116.305434",
@@ -71,6 +72,7 @@
 			"count": "290"
 		}
 	];
+	// 二级数据
 	let secondData = {
 		"北京市海淀区圆明园": {
 			"name": "圆明园",
@@ -113,7 +115,7 @@
 			"count": "26",
 		},
 	};
-
+	// 三级数据
 	let thirdlyData = {
 		"北京市海淀区中关村科育小区": {
 			"name": "科育小区",
@@ -159,32 +161,35 @@
 		},
 	}
 
-	//是否处于画圈状态下
+	// 是否处于画圈状态下
 	var isInDrawing = false;
-	//是否处于鼠标左键按下状态下
+	// 是否处于鼠标左键按下状态下
 	var isMouseDown = false;
-	//存储画出折线点的数组
+	// 存储画出折线点的数组
 	var polyPointArray = [];
-	//上次操作画出的折线
+	// 上次操作画出的折线
 	var lastPolyLine = null;
-	//画圈完成后生成的多边形
+	// 画圈完成后生成的多边形
 	var polygonAfterDraw = null;
 	var drawBtn = document.getElementById("draw");
 	var exitBtn = document.getElementById("exit");
-	
-	//初始化地图
+
+	// 初始化地图
 	initMap()
-	//初始化一级数据
+	// 初始化一级数据
 	addMarker(firstData, true)
-	
-	//搜索二级数据坐标  --此处搜索只是为了方便，如果项目实际用那就提前将坐标爬取下来
+
+	// 搜索二级数据坐标  --此处搜索只是为了方便，如果项目实际用那就提前将坐标爬取下来
 	searchCoord(secondData)
-	//搜索三级数据坐标
+	// 搜索三级数据坐标
 	searchCoord(thirdlyData)
-	
-	//初始化画圈找房
+
+	// 初始化画圈找房
 	drawing();
 
+	/**
+	 * 初始化地图
+	 */
 	function initMap() {
 		map = new BMap.Map("allMap", {
 			enableMapClick: false,
@@ -192,9 +197,9 @@
 		}); // 创建Map实例
 		map.centerAndZoom(new BMap.Point(116.403694, 39.916042), 11); // 初始化地图,设置中心点坐标和地图级别
 		map.enableScrollWheelZoom(true);
-		//监听地图级别缩放事件，当级别为9时默认加载集合点，扩大级别时显示详细点位数据
+		// 监听地图级别缩放事件，当级别为9时默认加载集合点，扩大级别时显示详细点位数据
 		map.addEventListener("zoomend", function() {
-			var zoomLevel = map.getZoom(); //获取地图缩放级别
+			var zoomLevel = map.getZoom(); // 获取地图缩放级别
 			if(zoomLevel <= 13) {
 				addMarker(firstData, true);
 			} else if(zoomLevel > 13 && zoomLevel <= 15) {
@@ -203,10 +208,10 @@
 				addLable(thirdlyData)
 			}
 		});
-		
-		//监听地图移动,根据视野动态加载
+
+		// 监听地图移动,根据视野动态加载
 		map.addEventListener("moveend", function() {
-			var zoomLevel = map.getZoom(); //获取地图缩放级别
+			var zoomLevel = map.getZoom(); // 获取地图缩放级别
 			if(zoomLevel > 15) {
 				addLable(thirdlyData)
 			}
@@ -229,45 +234,48 @@
 			});
 		}
 	}
-	//绑定按钮事件
+	
+	/**
+	 * 绑定按钮事件
+	 */
 	function drawing() {
-		//开始画圈绑定事件
+		// 开始画圈绑定事件
 		drawBtn.addEventListener('click', function(e) {
 			var zoomLevel = map.getZoom();
-			if(zoomLevel<=15){
+			if(zoomLevel <= 15) {
 				alert("请放大到三级数据进行画图找房");
 				return;
 			}
-			//禁止地图移动点击等操作
+			// 禁止地图移动点击等操作
 			map.clearOverlays()
 			map.disableDragging();
 			map.disableScrollWheelZoom();
 			map.disableDoubleClickZoom();
 			map.disableKeyboard();
-			//设置鼠标样式
+			// 设置鼠标样式
 			map.setDefaultCursor('crosshair');
-			//设置标志位进入画圈状态
+			// 设置标志位进入画圈状态
 			isInDrawing = true;
 		});
-		
-		//退出画圈按钮绑定事件
-		exitBtn.addEventListener('click',function(e){
-			//恢复地图移动点击等操作
+
+		// 退出画圈按钮绑定事件
+		exitBtn.addEventListener('click', function(e) {
+			// 恢复地图移动点击等操作
 			map.enableDragging();
 			map.enableScrollWheelZoom();
 			map.enableDoubleClickZoom();
 			map.enableKeyboard();
 			map.setDefaultCursor('default');
 			addLable(thirdlyData)
-			//设置标志位退出画圈状态
+			// 设置标志位退出画圈状态
 			isInDrawing = false;
 		})
-		
-		//为地图绑定鼠标按下事件(开始画圈)
+
+		// 为地图绑定鼠标按下事件(开始画圈)
 		map.addEventListener('mousedown', function(e) {
-			//如果处于画圈状态下,清空上次画圈的数据结构,设置isMouseDown进入画圈鼠标按下状态
+			// 如果处于画圈状态下,清空上次画圈的数据结构,设置isMouseDown进入画圈鼠标按下状态
 			if(isInDrawing) {
-				//清空地图上画的折线和圈
+				// 清空地图上画的折线和圈
 				map.removeOverlay(polygonAfterDraw);
 				map.removeOverlay(lastPolyLine);
 				polyPointArray = [];
@@ -275,13 +283,13 @@
 				isMouseDown = true;
 			}
 		});
-		//为地图绑定鼠标抬起事件(画圈完成)
+		// 为地图绑定鼠标抬起事件(画圈完成)
 		map.addEventListener('mouseup', function(e) {
-			//如果处于画圈状态下 且 鼠标是按下状态
+			// 如果处于画圈状态下 且 鼠标是按下状态
 			if(isInDrawing && isMouseDown) {
-				//退出画线状态
+				// 退出画线状态
 				isMouseDown = false;
-				//添加多边形覆盖物,设置为禁止点击
+				// 添加多边形覆盖物,设置为禁止点击
 				var polygon = new window.BMap.Polygon(polyPointArray, {
 					strokeColor: '#46ACFF',
 					strokeOpacity: 1,
@@ -294,46 +302,46 @@
 				show(polygon);
 			}
 		});
-		//为地图绑定鼠标移动事件(触发画图)
+		// 为地图绑定鼠标移动事件(触发画图)
 		map.addEventListener('mousemove', function(e) {
-			//如果处于鼠标按下状态,才能进行画操作
+			// 如果处于鼠标按下状态,才能进行画操作
 			if(isMouseDown) {
-				//将鼠标移动过程中采集到的路径点加入数组保存
+				// 将鼠标移动过程中采集到的路径点加入数组保存
 				polyPointArray.push(e.point);
-				//除去上次的画线
+				// 除去上次的画线
 				if(lastPolyLine) {
 					map.removeOverlay(lastPolyLine)
 				}
-				//根据已有的路径数组构建画出的折线
+				// 根据已有的路径数组构建画出的折线
 				var polylineOverlay = new window.BMap.Polyline(polyPointArray, {
 					strokeColor: '#46ACFF',
 					strokeOpacity: 1,
 					enableClicking: false
 				});
-				//添加新的画线到地图上
+				// 添加新的画线到地图上
 				map.addOverlay(polylineOverlay);
-				//更新上次画线条
+				// 更新上次画线条
 				lastPolyLine = polylineOverlay
 			}
 		})
 	}
-	
+
 	/**
 	 * 根据画的圈，显示相应的marker
 	 * @param {Object} polygon
 	 */
-	function show(polygon){
-		//得到多边形的点数组
+	function show(polygon) {
+		// 得到多边形的点数组
 		var pointArray = polygon.getPath();
-		//获取多边形的外包矩形
+		// 获取多边形的外包矩形
 		var bound = polygon.getBounds();
-		//在多边形内的点的数组
+		// 在多边形内的点的数组
 		var pointInPolygonArray = [];
-		//计算每个点是否包含在该多边形内
-		for(var i=0;i<thirdlyMkr.length;i++){
-			//该marker的坐标点
+		// 计算每个点是否包含在该多边形内
+		for(var i = 0; i < thirdlyMkr.length; i++) {
+			// 该marker的坐标点
 			var markerPoint = thirdlyMkr[i].getPosition();
-			if(isPointInPolygon(markerPoint,bound,pointArray)){
+			if(isPointInPolygon(markerPoint, bound, pointArray)) {
 				map.addOverlay(thirdlyMkr[i])
 			}
 		}
@@ -349,40 +357,40 @@
 
 		$.each(data, function(index, data) {
 
-			//如果是一级
+			// 如果是一级
 			if(flag) {
-				//绘画行政边界
+				// 绘画行政边界
 				getBoundary(data.name)
 			}
 			var point = new BMap.Point(data.longitude, data.latitude);
-			//自定义label样式
+			// 自定义label样式
 			var tpl = '<div class="bubble bubble-1" data-longitude="' + data.longitude + '"' +
 				' data-latitude="' + data.latitude + '">' +
 				'<p class="name" title="' + data.name + '">' + data.name + '</p>' +
 				'<p class="count"><span>' + data.count + '</span>套</p>' +
 				'</div>';
 			var myLabel = new BMap.Label(tpl, {
-				position: point, //label 在此处添加点位位置信息
+				position: point, // label 在此处添加点位位置信息
 				offset: new BMap.Size(-42, -42)
 			});
 			myLabel.setStyle({
-				width: "80px", //宽
-				height: "80px", //高度
-				border: "0", //边
+				width: "80px", // 宽
+				height: "80px", // 高度
+				border: "0", // 边
 				borderRadius: "80px",
-				background: "#46ACFF", //背景颜色
+				background: "#46ACFF", // 背景颜色
 				opacity: 0.9,
 				cursor: "pointer",
 				zIndex: 2
 			});
 			myLabel.setTitle(data.name);
-			map.addOverlay(myLabel); //添加点位
+			map.addOverlay(myLabel); // 添加点位
 			// 当鼠标悬停在label上时显示行政区划边界
 			myLabel.addEventListener("mouseover", function() {
 				myLabel.setStyle({
 					background: "#E2A76E",
 					zIndex: 4
-				}); //修改覆盖物背景颜色
+				}); // 修改覆盖物背景颜色
 				if(flag) {
 					var regionName = myLabel.getTitle();
 					plyAll[regionName].show();
@@ -393,7 +401,7 @@
 				myLabel.setStyle({
 					background: "#46ACFF",
 					zIndex: 2
-				}); //修改覆盖物背景颜色
+				}); // 修改覆盖物背景颜色
 				if(flag) {
 					var regionName = myLabel.getTitle();
 					plyAll[regionName].hide();
@@ -418,68 +426,72 @@
 	 */
 	function addLable(data) {
 		map.clearOverlays();
-		
-		//首先判断是不是第一次请求
-		if(thirdlyMkr.length<=0){
+
+		// 首先判断是不是第一次请求
+		if(thirdlyMkr.length <= 0) {
 			$.each(data, function(index, data) {
-	
+
 				var point = new BMap.Point(data.longitude, data.latitude);
-				//自定义label样式
+				// 自定义label样式
 				var tpl = '<div class=" bubble-1 ZLQbubble" data-longitude="' + data.longitude + '"' +
 					' data-latitude="' + data.latitude + '">' +
 					'<span class="name" title="' + data.name + '">' + data.name + '</span>&nbsp&nbsp' +
 					'<span class="count"><span>' + data.count + '</span>套</span>' +
 					'</div>';
 				var myLabel = new BMap.Label(tpl, {
-					position: point, //label 在此处添加点位位置信息
+					position: point, // label 在此处添加点位位置信息
 					offset: new BMap.Size(-42, -42)
 				});
 				myLabel.setStyle({
-					height: "22px", //高度
+					height: "22px", // 高度
 					lineHeight: "22px",
-					border: "0", //边
+					border: "0", // 边
 					borderRadius: "2px",
-					background: "#46ACFF", //背景颜色
+					background: "#46ACFF", // 背景颜色
 					opacity: 0.9,
 					cursor: "pointer",
 					zIndex: 2
 				});
 				myLabel.setTitle(data.name);
-				
-				//直接缓存起来
+
+				// 直接缓存起来
 				thirdlyMkr.push(myLabel);
 				myLabel.addEventListener("mouseover", function() {
 					myLabel.setStyle({
 						background: "#E2A76E",
 						zIndex: 4
-					}); //修改覆盖物背景颜色
+					}); // 修改覆盖物背景颜色
 				});
 				myLabel.addEventListener("mouseout", function() {
 					myLabel.setStyle({
 						background: "#46ACFF",
 						zIndex: 2
-					}); //修改覆盖物背景颜色
+					}); // 修改覆盖物背景颜色
 				});
-	
+
 				myLabel.addEventListener("click", function() {});
-	
+
 			})
 		}
-		
-		//根据视野动态加载
+
+		// 根据视野动态加载
 		addViewLabel(thirdlyMkr)
 	}
-	//根据行政区划绘制边界
+	
+	/**
+	 * 根据行政区划绘制边界
+	 * @param {Object} regionName
+	 */
 	function getBoundary(regionName) {
 
 		var ply = new BMap.Polygon(area[regionName], {
 			strokeWeight: 1,
 			strokeColor: "#0A77FB",
 			fillColor: "#7EB8FC"
-		}); //建立多边形覆盖物
+		}); // 建立多边形覆盖物
 		ply.hide();
 		plyAll[regionName] = ply
-		map.addOverlay(ply); //添加覆盖物
+		map.addOverlay(ply); // 添加覆盖物
 
 	}
 
@@ -499,63 +511,62 @@
 			}
 		}
 	}
-	
-	//判断地图视野包含哪些点
+
+	// 判断地图视野包含哪些点
 	function isPointInRect(point, bounds) {
-        //检查类型是否正确
-        if (!(point instanceof BMap.Point) ||
-            !(bounds instanceof BMap.Bounds)) {
-            return false;
-        }
-        var sw = bounds.getSouthWest(); //西南脚点
-        var ne = bounds.getNorthEast(); //东北脚点
-        return (point.lng >= sw.lng && point.lng <= ne.lng && point.lat >= sw.lat && point.lat <= ne.lat);
-    }
-	
-	//判定一个点是否包含在多边形内
-	function isPointInPolygon(point,bound,pointArray){
-		//首先判断该点是否在外包矩形内，如果不在直接返回false
-		if(!bound.containsPoint(point)){
+		// 检查类型是否正确
+		if(!(point instanceof BMap.Point) ||
+			!(bounds instanceof BMap.Bounds)) {
 			return false;
 		}
-		//如果在外包矩形内则进一步判断
-		//该点往右侧发出的射线和矩形边交点的数量,若为奇数则在多边形内，否则在外
-		var crossPointNum = 0;
-		for(var i=0;i<pointArray.length;i++){
-			//获取2个相邻的点
-			var p1 = pointArray[i];
-			var p2 = pointArray[(i+1)%pointArray.length];
-			//如果点相等直接返回true
-			if((p1.lng===point.lng && p1.lat===point.lat)||(p2.lng===point.lng && p2.lat===point.lat)){
-				return true
-			}
-			//如果point在2个点所在直线的下方则continue
-			if(point.lat < Math.min(p1.lat,p2.lat)){
-				continue;
-			}
-			//如果point在2个点所在直线的上方则continue
-			if(point.lat >= Math.max(p1.lat,p2.lat)){
-				continue;
-			}
-			//有相交情况:2个点一上一下,计算交点
-			//特殊情况2个点的横坐标相同
-			var crossPointLng;
-			if(p1.lng === p2.lng){
-				crossPointLng = p1.lng;
-			}else{
-				//计算2个点的斜率
-				var k = (p2.lat - p1.lat)/(p2.lng - p1.lng);
-				//得出水平射线与这2个点形成的直线的交点的横坐标
-				crossPointLng = (point.lat - p1.lat)/k + p1.lng;
-			}
-			//如果crossPointLng的值大于point的横坐标则算交点(因为是右侧相交)
-			if(crossPointLng > point.lng){
-				crossPointNum++;
-			}
-	
-		}
-		//如果是奇数个交点则点在多边形内
-		return crossPointNum%2===1
+		var sw = bounds.getSouthWest(); // 西南脚点
+		var ne = bounds.getNorthEast(); // 东北脚点
+		return(point.lng >= sw.lng && point.lng <= ne.lng && point.lat >= sw.lat && point.lat <= ne.lat);
 	}
 
+	// 判定一个点是否包含在多边形内
+	function isPointInPolygon(point, bound, pointArray) {
+		// 首先判断该点是否在外包矩形内，如果不在直接返回false
+		if(!bound.containsPoint(point)) {
+			return false;
+		}
+		// 如果在外包矩形内则进一步判断
+		// 该点往右侧发出的射线和矩形边交点的数量,若为奇数则在多边形内，否则在外
+		var crossPointNum = 0;
+		for(var i = 0; i < pointArray.length; i++) {
+			// 获取2个相邻的点
+			var p1 = pointArray[i];
+			var p2 = pointArray[(i + 1) % pointArray.length];
+			// 如果点相等直接返回true
+			if((p1.lng === point.lng && p1.lat === point.lat) || (p2.lng === point.lng && p2.lat === point.lat)) {
+				return true
+			}
+			// 如果point在2个点所在直线的下方则continue
+			if(point.lat < Math.min(p1.lat, p2.lat)) {
+				continue;
+			}
+			// 如果point在2个点所在直线的上方则continue
+			if(point.lat >= Math.max(p1.lat, p2.lat)) {
+				continue;
+			}
+			// 有相交情况:2个点一上一下,计算交点
+			// 特殊情况2个点的横坐标相同
+			var crossPointLng;
+			if(p1.lng === p2.lng) {
+				crossPointLng = p1.lng;
+			} else {
+				// 计算2个点的斜率
+				var k = (p2.lat - p1.lat) / (p2.lng - p1.lng);
+				// 得出水平射线与这2个点形成的直线的交点的横坐标
+				crossPointLng = (point.lat - p1.lat) / k + p1.lng;
+			}
+			// 如果crossPointLng的值大于point的横坐标则算交点(因为是右侧相交)
+			if(crossPointLng > point.lng) {
+				crossPointNum++;
+			}
+
+		}
+		// 如果是奇数个交点则点在多边形内
+		return crossPointNum % 2 === 1
+	}
 </script>
