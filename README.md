@@ -1,4 +1,6 @@
-# MapFindingRoom
+# 仿链家地图找房
+
+### 技术交流群：1018373095
 
 ### 主要功能点
     1.以北京为基础，区->街道->小区,三级下钻联动。
@@ -10,3 +12,4 @@
 ![image](https://github.com/ZhuGYao/MapFindingRoom/blob/master/img/demo.gif)
 
 ### 开源不易，且行且珍惜，请大方的点一下star，谢谢!
+
