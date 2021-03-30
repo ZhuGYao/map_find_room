@@ -11,5 +11,5 @@
 ### 项目截图示例
 ![image](https://github.com/ZhuGYao/MapFindingRoom/blob/master/img/demo.gif)
 
-### 开源不易，且行且珍惜，您的star✨是我继续完善指南的动力，谢谢!
+### 开源不易，且行且珍惜，您的star✨是我继续完善的动力，谢谢!
 
